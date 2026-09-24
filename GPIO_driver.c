@@ -1,7 +1,5 @@
 #include <stdint.h>
 //uint32_t k;
-uint32_t MASK;
-uint32_t VALUE;
 
 struct GPIO{
     uint32_t MODE;
@@ -14,6 +12,8 @@ struct GPIO *GPIO;
 uint32_t pin;
 void gpio_set_mode(uint32_t pin, uint32_t mode)
 {
+    uint32_t MASK;
+    uint32_t VALUE;
     int SHIFT = pin * 2;
     MASK  = 3U << SHIFT;
     VALUE = mode << SHIFT;
@@ -23,6 +23,8 @@ void gpio_set_mode(uint32_t pin, uint32_t mode)
 }
 
 void gpio_write(uint32_t pin, uint32_t level){
+    uint32_t MASK;
+    uint32_t VALUE;
     MASK = 1U << pin;
     VALUE = level << pin;
 
