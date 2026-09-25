@@ -18,7 +18,7 @@ void gpio_set_mode(uint32_t pin, uint32_t mode)
 {
     uint32_t MASK;
     uint32_t VALUE;
-    int SHIFT = pin * 2;
+    uint32_t SHIFT = pin * 2U;
     MASK  = 3U << SHIFT;
     VALUE = mode << SHIFT;
 
@@ -27,11 +27,8 @@ void gpio_set_mode(uint32_t pin, uint32_t mode)
 }
 
 void gpio_write(uint32_t pin, uint32_t level){
-    uint32_t MASK;
-    uint32_t VALUE;
-    MASK = 1U << pin;
-    VALUE = level << pin;
-
-    GPIO->OUTPUT &= ~MASK;
-    GPIO->OUTPUT |= VALUE;
+if (level == GPIO_HIGH)
+    GPIO->OUTPUT |= (1U << pin);
+else
+    GPIO->OUTPUT &= ~(1U << pin);
 }
