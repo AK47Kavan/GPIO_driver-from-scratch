@@ -18,12 +18,12 @@ void gpio_set_mode(uint32_t pin, uint32_t mode)
 {
     uint32_t MASK;
     uint32_t VALUE;
-    uint32_t SHIFT = pin * 2U;
-    MASK  = 3U << SHIFT;
-    VALUE = mode << SHIFT;
+    uint32_t SHIFT = pin * 2U;// so pin 0 means 0 then pin 1 means 2 shift and so on
+    MASK  = 3U << SHIFT;// this will shift that
+    VALUE = mode << SHIFT;//thiswill shift mode to that position for the value
 
-    GPIO->MODE &= ~MASK;
-    GPIO->MODE |= VALUE;
+    GPIO->MODE &= ~MASK;// we make it zero for that particular position
+    GPIO->MODE |= VALUE;// then we write the mode
 }
 
 void gpio_write(uint32_t pin, uint32_t level){
