@@ -1,5 +1,9 @@
 #include <stdint.h>
 //uint32_t k;
+#define GPIO_INPUT     0U
+#define GPIO_OUTPUT    1U
+#define GPIO_ALTERNATE 2U
+#define GPIO_ANALOG    3U
 
 struct GPIO{
     uint32_t MODE;
