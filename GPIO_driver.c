@@ -18,7 +18,9 @@ struct GPIO{
 
 volatile struct GPIO *GPIO =
     (volatile struct GPIO *)0x50000000U;
+
 uint32_t pin;
+
 int  gpio_set_mode(uint32_t pin, uint32_t mode)
 {
     if(pin<GPIO_PIN_COUNT && mode<=GPIO_ANALOG){
@@ -36,7 +38,10 @@ int  gpio_set_mode(uint32_t pin, uint32_t mode)
 }
 
 int  gpio_write(uint32_t pin, uint32_t level){
+    uint32_t MASK = 3U<<(pin*2U);
+    uint32_t mode = (GPIO->MODE & MASK) >> (pin * 2U);
     if(pin<GPIO_PIN_COUNT ){
+        if(mode==GPIO_OUTPUT){
         if (level == GPIO_HIGH){
             GPIO->OUTPUT |= (1U << pin);
         return 1;
@@ -47,6 +52,7 @@ int  gpio_write(uint32_t pin, uint32_t level){
         }
         else{
             return 0;
+        }
         }
     }
     return 0;
