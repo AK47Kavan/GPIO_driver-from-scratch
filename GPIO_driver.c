@@ -55,8 +55,8 @@ int  gpio_write(uint32_t pin, uint32_t level){
 
 gpio_read(uint32_t pin){
     if(pin<GPIO_PIN_COUNT){
-        uint32_t value = GPIO->INPUT;
-        if(value&(1U << pin)){
+        //uint32_t value = GPIO->INPUT;
+        if(GPIO->INPUT&(1U << pin)){
             return GPIO_HIGH;
         }
         else{
