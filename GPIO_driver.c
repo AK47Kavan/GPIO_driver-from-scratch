@@ -7,6 +7,7 @@
 #define GPIO_PIN_COUNT 16U
 #define GPIO_HIGH     1U
 #define GPIO_LOW      0U
+#define GPIO_INVALID  4U
 
 struct GPIO{
     uint32_t MODE;
@@ -49,4 +50,18 @@ int  gpio_write(uint32_t pin, uint32_t level){
         }
     }
     return 0;
+}
+
+
+gpio_read(uint32_t pin){
+    if(pin<GPIO_PIN_COUNT){
+        uint32_t value = GPIO->INPUT;
+        if(value&(1U << pin)){
+            return GPIO_HIGH;
+        }
+        else{
+            return GPIO_LOW;
+        }
+    }
+    return GPIO_INVALID;
 }
