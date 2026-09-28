@@ -39,8 +39,8 @@ int  gpio_set_mode(uint32_t pin, uint32_t mode)
 
 int  gpio_write(uint32_t pin, uint32_t level){
     uint32_t MASK = 3U<<(pin*2U);
-    uint32_t mode = (GPIO->MODE & MASK) >> (pin * 2U);
-    if(pin<GPIO_PIN_COUNT ){
+    uint32_t mode = (GPIO->MODE & MASK) >> (pin * 2U);// get the mode for that pin
+    if(pin<GPIO_PIN_COUNT){
         if(mode==GPIO_OUTPUT){
         if (level == GPIO_HIGH){
             GPIO->OUTPUT |= (1U << pin);
@@ -62,12 +62,19 @@ int  gpio_write(uint32_t pin, uint32_t level){
 gpio_read(uint32_t pin){
     if(pin<GPIO_PIN_COUNT){
         //uint32_t value = GPIO->INPUT;
+        uint32_t SHIFT = pin * 2U;
+        uint32_t MASK = 3U << SHIFT;
+        uint32_t value = (GPIO->MODE & MASK) >> SHIFT;
+        if(value==GPIO_INPUT){
         if(GPIO->INPUT&(1U << pin)){
             return GPIO_HIGH;
         }
-        else{
-            return GPIO_LOW;
+            else{
+                return GPIO_LOW;
+            }
         }
+        else{
+            return GPIO_INVALID;
+        }
+        return GPIO_INVALID
     }
-    return GPIO_INVALID;
-}
