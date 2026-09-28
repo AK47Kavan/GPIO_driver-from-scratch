@@ -59,7 +59,7 @@ int  gpio_write(uint32_t pin, uint32_t level){
 }
 
 
-gpio_read(uint32_t pin){
+int gpio_read(uint32_t pin){
     if(pin<GPIO_PIN_COUNT){
         //uint32_t value = GPIO->INPUT;
         uint32_t SHIFT = pin * 2U;
