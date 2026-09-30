@@ -78,3 +78,21 @@ int gpio_read(uint32_t pin){
         }
         return GPIO_INVALID
     }
+
+int gpio_toggle(uint32_t pin){
+        if(pin<GPIO_PIN_COUNT){
+            uint32_t SHIFT = pin * 2U;
+            uint32_t MASK = 3U << SHIFT;
+            uint32_t value = (GPIO->MODE & MASK) >> SHIFT;
+    if(value==GPIO_OUTPUT){
+        if(GPIO->OUTPUT & (1U << pin)){
+            GPIO->OUTPUT &=~(1U<<pin);
+        }
+        else{
+            GPIO->OUTPUT |= (1U<<pin);
+        }
+        return 1;
+    }
+    }
+    return 0;
+}
