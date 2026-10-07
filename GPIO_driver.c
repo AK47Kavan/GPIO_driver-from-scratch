@@ -110,3 +110,8 @@ int gpio_enable_interrupt(uint32_t pin){
     }
     return 0;
 }
+
+void gpio_isr(void){
+    uint16_t pending;
+    pending = GPIO->INT_STATUS;
+}
