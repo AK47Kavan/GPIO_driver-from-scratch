@@ -114,7 +114,7 @@ int gpio_enable_interrupt(uint32_t pin){
 void gpio_isr(void){
     uint16_t pending;
     pending = GPIO->INT_STATUS;
-    for(int i = 0; i < GPIO_COUNT; i++)
+    for(int i = 0; i < GPIO_PIN_COUNT; i++)
     {
         if(pending & (1U << i))
         {
