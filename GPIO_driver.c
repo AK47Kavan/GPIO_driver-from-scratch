@@ -21,6 +21,11 @@ volatile struct GPIO *GPIO =
 
 uint32_t pin;
 
+void gpio_init(void){
+    GPIO->MODE = 0x00000000;
+    GPIO->OUTPUT = 0x00000000;
+}
+
 int  gpio_set_mode(uint32_t pin, uint32_t mode)
 {
     if(pin<GPIO_PIN_COUNT && mode<=GPIO_ANALOG){
@@ -93,6 +98,15 @@ int gpio_toggle(uint32_t pin){
         }
         return 1;
     }
+    }
+    return 0;
+}
+
+int gpio_enable_interrupt(uint32_t pin){
+    if(pin<GPIO_PIN_COUNT){
+        GPIO->INT_ENABLE |= (1U << pin);
+        GPIO->INT_RISING |= (1U << pin);
+        return 1;
     }
     return 0;
 }
