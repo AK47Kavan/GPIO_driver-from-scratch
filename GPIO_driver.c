@@ -121,7 +121,9 @@ void gpio_isr(void){
         {
             // handle pending pin
             GPIO->INT_STATUS = (1U << i);
-            button_events++;
+            if(i==5){
+                button_events++;
+            }
         }
     }
 }
