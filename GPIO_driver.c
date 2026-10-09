@@ -120,6 +120,8 @@ void gpio_isr(void){
         if(pending & (1U << i))
         {
             // handle pending pin
+            GPIO->INT_STATUS = (1U << i);
+            button_events++;
         }
     }
 }
