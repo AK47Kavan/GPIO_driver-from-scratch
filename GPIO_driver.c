@@ -110,6 +110,7 @@ int gpio_enable_interrupt(uint32_t pin){
     }
     return 0;
 }
+volatile uint32_t button_events = 0;
 
 void gpio_isr(void){
     uint16_t pending;
